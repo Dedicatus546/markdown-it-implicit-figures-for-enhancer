@@ -1,5 +1,5 @@
 // import attributes from "markdown-it-attrs";
-import MarkdownIt from "markdown-it-enhancer";
+import { MarkdownIt } from "markdown-it-enhancer";
 import { describe, expect, it } from "vitest";
 
 import { implicitFigures } from "../src";
@@ -7,7 +7,7 @@ import type { ImplicitFiguresOptions } from "../src/types";
 
 describe("markdown-it-implicit-figures", () => {
   const createMarkdown = async (options: ImplicitFiguresOptions = {}) => {
-    const md = MarkdownIt();
+    const md = new MarkdownIt();
     await md.use(implicitFigures, options).isReady();
     return md;
   };
@@ -128,7 +128,7 @@ describe("markdown-it-implicit-figures", () => {
   });
 
   it('should linkify captions when figcaption is set to "title"', async () => {
-    const md = MarkdownIt({ linkify: true });
+    const md = new MarkdownIt({ linkify: true });
     await md.use(implicitFigures, { figcaption: "title" }).isReady();
     const src = '![](fig.png "www.google.com")';
     const expected =
@@ -137,7 +137,7 @@ describe("markdown-it-implicit-figures", () => {
   });
 
   it("should linkify captions when figcaption is on", async () => {
-    const md = MarkdownIt({ linkify: true });
+    const md = new MarkdownIt({ linkify: true });
     await md.use(implicitFigures, { figcaption: true }).isReady();
     const src = "![www.google.com](fig.png)";
     const expected =
@@ -146,7 +146,7 @@ describe("markdown-it-implicit-figures", () => {
   });
 
   it("should linkify captions when figcaption is on and keepAlt is set", async () => {
-    const md = MarkdownIt({ linkify: true });
+    const md = new MarkdownIt({ linkify: true });
     await md
       .use(implicitFigures, {
         figcaption: true,
